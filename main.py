@@ -21,7 +21,7 @@ def get_ip_trace_rt(name: str):
 
 def is_grey_ip(ip: str):
     """
-    Функция для проверки, является ли IP-адрес "серым" (например, принадлежащим локальной сети).
+    Функция для проверки, является ли IP-адрес "серым".
     Возвращает True, если IP-адрес серый, и False в противном случае.
     """
     ip_parts = list(map(int, ip.split('.')))
@@ -33,19 +33,6 @@ def is_grey_ip(ip: str):
 
     else:
         return False
-
-
-def parse(site, reg):
-    """
-    Функция для поиска и извлечения информации из текста сайта с помощью регулярного выражения.
-    Возвращает найденное значение или пустую строку.
-    """
-    try:
-        a = reg.findall(site)
-        return a[0]
-
-    except IndexError:
-        return ''
 
 
 def get_info_by_ip(ip):
@@ -75,23 +62,23 @@ def create_table(ips):
     Функция для создания красивой таблицы с информацией об IP-адресах.
     Принимает список IP-адресов и выводит таблицу с данными о каждом IP-адресе.
     """
-    th = ["№", "IP", "AS Name", "Country", "Provider"]
-    td_data = []
+    table_header = ["№", "IP", "AS Name", "Country", "Provider"]
+    table_data = []
     number = 1
     for i in ips:
         info = get_info_by_ip(i)
 
         if info is not None and info[1]:
-            td_data.append(number)
-            td_data.extend(info)
+            table_data.append(number)
+            table_data.extend(info)
             number += 1
 
-    columns = len(th)
-    table = PrettyTable(th)
+    columns = len(table_header)
+    table = PrettyTable(table_header)
 
-    while td_data:
-        table.add_row(td_data[:columns])
-        td_data = td_data[columns:]
+    while table_data:
+        table.add_row(table_data[:columns])
+        table_data = table_data[columns:]
 
     print(table)
 
