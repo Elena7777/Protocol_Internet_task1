@@ -75,7 +75,7 @@ def create_table(ips):
     Функция для создания красивой таблицы с информацией об IP-адресах.
     Принимает список IP-адресов и выводит таблицу с данными о каждом IP-адресе.
     """
-    th = ["№", "IP", "AS Name", "Country", "Provider"]
+    table_header = ["№", "IP", "AS Name", "Country", "Provider"]
     td_data = []
     number = 1
     for i in ips:
@@ -86,8 +86,8 @@ def create_table(ips):
             td_data.extend(info)
             number += 1
 
-    columns = len(th)
-    table = PrettyTable(th)
+    columns = len(table_header)
+    table = PrettyTable(table_header)
 
     while td_data:
         table.add_row(td_data[:columns])
